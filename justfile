@@ -46,3 +46,4 @@ gitignore:
     @echo "native/src/bridge_generated.io.rs" >> .gitignore
     @echo "native/src/bridge_generated.rs"    >> .gitignore
     @echo "native/src/bridge_generated.web.rs">> .gitignore
+    @echo "**/target/**">> .gitignore
