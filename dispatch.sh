@@ -11,6 +11,14 @@ cd app_schema && rm dispatch.sh
 # step2: push
 git remote rm origin
 git remote add origin $repo
+# step2.1`: do script
+just
+just gitignore
+# step2.2`: do script
 git add *
+git add .gitignore 
 git commit -m "patch finish"
-git push --set-upstream origin patch
+git push --set-upstream origin main
+
+# stepN: coding
+code .
