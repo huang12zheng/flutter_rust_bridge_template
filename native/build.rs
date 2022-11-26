@@ -7,8 +7,9 @@ use lib_flutter_rust_bridge_codegen::{
 
 /// Path of input Rust code
 const RUST_INPUTS: [&str; 1] = ["src/api.rs"];
-/// Class name to use in dart, corresponding to each Rust block
 const CLASS_NAMES: [&str; 1] = ["Native"];
+// const RUST_INPUTS: [&str; 2] = ["src/api.rs", "src/surreal.rs"];
+// const CLASS_NAMES: [&str; 2] = ["Native", "Db"];
 /// Path of output generated Dart code
 const DART_OUTPUT: &str = "../lib/bridge_generated";
 /// Path of output Rust code
@@ -34,6 +35,13 @@ fn rm_nouse_file() {
         Command::new("sh")
             .args([
                 "-c",
+                format!("sed -i '' '/.*mod bridge_generated;.*/d' src/lib.rs").as_str(),
+            ])
+            .spawn()
+            .ok();
+        Command::new("sh")
+            .args([
+                "-c",
                 format!("rm {RUST_OUTPUT}.rs {RUST_OUTPUT}.io.rs {RUST_OUTPUT}.web.rs").as_str(),
             ])
             .spawn()
@@ -47,6 +55,13 @@ fn rm_nouse_file() {
             .spawn()
             .ok();
     } else {
+        Command::new("sh")
+            .args([
+                "-c",
+                format!("sed -i '' '/.*mod bridge_generated_.*/d' src/lib.rs").as_str(),
+            ])
+            .spawn()
+            .ok();
         Command::new("sh")
             .args(["-c", format!("rm {RUST_OUTPUT}_*").as_str()])
             .spawn()
