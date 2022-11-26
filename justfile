@@ -27,23 +27,22 @@ gitignore:
     echo "git rm --cache"
     @git rm --cache ios/Runner/bridge_generated.h
     @git rm --cache lib/bridge_definitions.dart
-    @git rm --cache lib/bridge_generated.dart
-    @git rm --cache lib/bridge_generated.io.dart
-    @git rm --cache lib/bridge_generated.web.dart
+    @git rm --cache lib/bridge_generated*.dart
+    # @git rm --cache lib/bridge_generated.io.dart
+    # @git rm --cache lib/bridge_generated.web.dart
     @git rm --cache macos/Runner/bridge_generated.h
-    @git rm --cache native/src/bridge_generated.io.rs
-    @git rm --cache native/src/bridge_generated.rs
-    @git rm --cache native/src/bridge_generated.web.rs
+    @git rm --cache native/src/bridge_generated*.rs
+    # @git rm --cache native/src/bridge_generated.io.rs
+    # @git rm --cache native/src/bridge_generated.web.rs
 
     echo "echo \$filepath >> .gitignore"
     @echo "ios/Runner/bridge_generated.h" >> .gitignore
-    @echo "ios/Runner/bridge_generated.h" >> .gitignore
     @echo "lib/bridge_definitions.dart"   >> .gitignore
-    @echo "lib/bridge_generated.dart"     >> .gitignore
-    @echo "lib/bridge_generated.io.dart"  >> .gitignore
-    @echo "lib/bridge_generated.web.dart" >> .gitignore
+    @echo "lib/bridge_generated*.dart"     >> .gitignore
+    # @echo "lib/bridge_generated.io.dart"  >> .gitignore
+    # @echo "lib/bridge_generated.web.dart" >> .gitignore
     @echo "macos/Runner/bridge_generated.h"   >> .gitignore
-    @echo "native/src/bridge_generated.io.rs" >> .gitignore
-    @echo "native/src/bridge_generated.rs"    >> .gitignore
-    @echo "native/src/bridge_generated.web.rs">> .gitignore
+    @echo "native/src/bridge_generated*.rs" >> .gitignore
+    # @echo "native/src/bridge_generated.rs"    >> .gitignore
+    # @echo "native/src/bridge_generated.web.rs">> .gitignore
     @echo "**/target/**">> .gitignore

@@ -9,8 +9,8 @@ version = "0.1.0"
 crate-type = ["cdylib", "staticlib"]
 
 [dependencies]
-anyhow = "1"
-flutter_rust_bridge = "1"
+anyhow = "^1"
+flutter_rust_bridge = "^1"
 tokio = {version = "^1.21.2", default-features = false, features = ["macros", "rt", "sync"]}
 
 surrealdb-rs = {git = "https://github.com/rushmorem/surrealdb.rs", branch = "embedded-db", default-features = false}
@@ -24,3 +24,6 @@ http = ["surrealdb-rs/http"]
 local = ["surrealdb-rs/rocksdb"]
 test = ["surrealdb-rs/mem"]
 ws = ["surrealdb-rs/ws"]
+
+[build-dependencies]
+flutter_rust_bridge_codegen = {version = "^1", features = ["chrono", "uuid"]}
