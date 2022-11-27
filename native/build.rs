@@ -6,10 +6,10 @@ use lib_flutter_rust_bridge_codegen::{
 };
 
 /// Path of input Rust code
-const RUST_INPUTS: [&str; 1] = ["src/api.rs"];
-const CLASS_NAMES: [&str; 1] = ["Native"];
-// const RUST_INPUTS: [&str; 2] = ["src/api.rs", "src/surreal.rs"];
-// const CLASS_NAMES: [&str; 2] = ["Native", "Db"];
+// const RUST_INPUTS: [&str; 1] = ["src/api.rs"];
+// const CLASS_NAMES: [&str; 1] = ["Native"];
+const RUST_INPUTS: [&str; 2] = ["src/api.rs", "src/surreal.rs"];
+const CLASS_NAMES: [&str; 2] = ["Native", "Db"];
 /// Path of output generated Dart code
 const DART_OUTPUT: &str = "../lib/bridge_generated";
 /// Path of output Rust code
@@ -31,46 +31,30 @@ fn main() {
 }
 
 fn rm_nouse_file() {
-    if RUST_INPUTS.len() > 1 {
-        Command::new("sh")
-            .args([
-                "-c",
-                format!("sed -i '' '/.*mod bridge_generated;.*/d' src/lib.rs").as_str(),
-            ])
-            .spawn()
-            .ok();
-        Command::new("sh")
-            .args([
-                "-c",
-                format!("rm {RUST_OUTPUT}.rs {RUST_OUTPUT}.io.rs {RUST_OUTPUT}.web.rs").as_str(),
-            ])
-            .spawn()
-            .ok();
-        Command::new("sh")
-            .args([
-                "-c",
-                format!("rm {DART_OUTPUT}.dart {DART_OUTPUT}.io.dart {DART_OUTPUT}.web.dart")
-                    .as_str(),
-            ])
-            .spawn()
-            .ok();
-    } else {
-        Command::new("sh")
-            .args([
-                "-c",
-                format!("sed -i '' '/.*mod bridge_generated_.*/d' src/lib.rs").as_str(),
-            ])
-            .spawn()
-            .ok();
-        Command::new("sh")
-            .args(["-c", format!("rm {RUST_OUTPUT}_*").as_str()])
-            .spawn()
-            .ok();
-        Command::new("sh")
-            .args(["-c", format!("rm {DART_OUTPUT}_*").as_str()])
-            .spawn()
-            .ok();
-    }
+    Command::new("sh")
+        .args([
+            "-c",
+            format!("sed -i '' '/.*mod bridge_generated.*/d' src/lib.rs").as_str(),
+        ])
+        .spawn()
+        .ok();
+    Command::new("sh")
+        .args(["-c", format!("rm {RUST_OUTPUT}*").as_str()])
+        .spawn()
+        .ok();
+    Command::new("sh")
+        .args(["-c", format!("rm {DART_OUTPUT}*").as_str()])
+        .spawn()
+        .ok();
+    Command::new("sh")
+        .args([
+            "-c",
+            format!("rm ../ios/Runner/bridge_generated.h ../macos/Runner/bridge_generated.h")
+                .as_str(),
+        ])
+        .spawn()
+        .ok();
+    // }
 }
 
 fn frb() {
@@ -108,7 +92,13 @@ fn frb() {
         dart_output: dart_outputs,
         wasm: true,
         rust_output: Some(rust_outputs),
-        dart_decl_output: Some("../lib/bridge_definitions.dart".into()),
+        c_output: Some(
+            [
+                "../ios/Runner/bridge_generated.h",
+                "../macos/Runner/bridge_generated.h",
+            ]
+            .into_vecs(),
+        ),
         dart_format_line_length: 120,
         class_name: Some(CLASS_NAMES.into_vecs()),
         // for other options use defaults
