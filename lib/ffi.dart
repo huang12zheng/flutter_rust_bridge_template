@@ -3,12 +3,10 @@
 
 import 'dart:ffi';
 
-import 'bridge_generated.dart';
-import 'bridge_definitions.dart';
-export 'bridge_definitions.dart';
+import 'bridge_generated_0.dart';
 
 // Re-export the bridge so it is only necessary to import this file.
-export 'bridge_generated.dart';
+export 'bridge_generated_0.dart';
 import 'dart:io' as io;
 
 const _base = 'native';
